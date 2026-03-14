@@ -1,0 +1,84 @@
+{
+  "tests": [
+    {
+      "name": "Project Compiles",
+      "setup": "chmod +x gradlew",
+      "run": "./gradlew assembleDebug --no-daemon",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 20
+    },
+    {
+      "name": "ShoppingItem has priority field",
+      "setup": "",
+      "run": "grep -q 'priority' app/src/main/java/com/example/shoppinglist/ShoppingItem.java && echo 'FOUND'",
+      "input": "",
+      "output": "FOUND",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 15
+    },
+    {
+      "name": "ShoppingItem has getPriority method",
+      "setup": "",
+      "run": "grep -q 'getPriority' app/src/main/java/com/example/shoppinglist/ShoppingItem.java && echo 'FOUND'",
+      "input": "",
+      "output": "FOUND",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 10
+    },
+    {
+      "name": "ShoppingItem has setPriority method",
+      "setup": "",
+      "run": "grep -q 'setPriority' app/src/main/java/com/example/shoppinglist/ShoppingItem.java && echo 'FOUND'",
+      "input": "",
+      "output": "FOUND",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 10
+    },
+    {
+      "name": "ShoppingList has getSortedByPriority method",
+      "setup": "",
+      "run": "grep -q 'getSortedByPriority' app/src/main/java/com/example/shoppinglist/ShoppingList.java && echo 'FOUND'",
+      "input": "",
+      "output": "FOUND",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 20
+    },
+    {
+      "name": "OBSERVATIONS.md filled in",
+      "setup": "",
+      "run": "test $(wc -c < OBSERVATIONS.md) -gt 5200 && echo 'FILLED'",
+      "input": "",
+      "output": "FILLED",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 10
+    },
+    {
+      "name": "QUESTIONS.md answered",
+      "setup": "",
+      "run": "test $(wc -c < QUESTIONS.md) -gt 6700 && echo 'ANSWERED'",
+      "input": "",
+      "output": "ANSWERED",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 10
+    },
+    {
+      "name": "UML diagram PNG files committed",
+      "setup": "",
+      "run": "test $(find diagrams/ -name '*.png' 2>/dev/null | wc -l) -ge 2 && echo 'DIAGRAMS'",
+      "input": "",
+      "output": "DIAGRAMS",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 5
+    }
+  ]
+}
