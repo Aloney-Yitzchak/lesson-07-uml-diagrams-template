@@ -1,0 +1,48 @@
+name: Autograding
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  autograding:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Grant gradlew execute permission
+      run: chmod +x gradlew
+
+    - name: Build project
+      run: ./gradlew assembleDebug --no-daemon
+      continue-on-error: true
+
+    - name: Check priority field in ShoppingItem
+      run: grep -q "priority" app/src/main/java/com/example/shoppinglist/ShoppingItem.java
+
+    - name: Check getPriority method
+      run: grep -q "getPriority" app/src/main/java/com/example/shoppinglist/ShoppingItem.java
+
+    - name: Check setPriority method
+      run: grep -q "setPriority" app/src/main/java/com/example/shoppinglist/ShoppingItem.java
+
+    - name: Check getSortedByPriority in ShoppingList
+      run: grep -q "getSortedByPriority" app/src/main/java/com/example/shoppinglist/ShoppingList.java
+
+    - name: Check OBSERVATIONS.md filled
+      run: test $(wc -c < OBSERVATIONS.md) -gt 5200
+
+    - name: Check QUESTIONS.md filled
+      run: test $(wc -c < QUESTIONS.md) -gt 6700
+
+    - name: Check UML diagrams committed
+      run: test $(find diagrams/ -name "*.png" 2>/dev/null | wc -l) -ge 2
